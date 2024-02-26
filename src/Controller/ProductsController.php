@@ -95,7 +95,7 @@ class ProductsController extends AbstractController
         try {
             $request = $this->transformJsonBody($request);
     
-            if (!$request || !$request->get('name') || !$request->get('price') || $request->get('vat') || empty($request->get('vat'))){
+            if (!$request || !$request->get('name') || !$request->get('price') || !$request->get('vat') || $request->get('vat') == ''){
                 throw new \Exception();
             }
     
@@ -114,8 +114,8 @@ class ProductsController extends AbstractController
 
                 $country = $country[0];
                 $country_vat = new CountriesVat;
-                $country_vat->setCountry($country->id);
-                $country_vat->setProduct($product->getId());
+                $country_vat->setCountry($country);
+                $country_vat->setProduct($product);
                 $country_vat->setVat($vat);
                 $entityManager->persist($country_vat);
                 $entityManager->flush();
