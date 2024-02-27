@@ -7,10 +7,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libicu-dev \
     libpq-dev \
-    mariadb-server \
     && docker-php-ext-install -j$(nproc) pdo_mysql pdo_pgsql intl
-
-RUN systemctl start mariadb.service
 
 # Встановлюємо Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
