@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Копіюємо файли проекту до контейнера
-RUN git clone https://github.com/imaydaydl/symfony-api-shop /var/www/shop
+RUN git clone https://github.com/imaydaydl/symfony-api-shop /var/www/html
 
 # Встановлюємо залежності Composer
 RUN composer install
@@ -21,10 +21,7 @@ RUN composer install
 # Виконуємо додаткові налаштування (за потреби)
 
 # Вказуємо робочу директорію
-WORKDIR /var/www/shop
-
-RUN php bin/console doctrine:database:create
-RUN php bin/console doctrine:migrations:migrate
+WORKDIR /var/www/html
 
 # Виконуємо команду для запуску веб-сервера
 CMD ["apache2-foreground"]

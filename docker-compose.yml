@@ -17,4 +17,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - .:/var/www/shop
+      - .:/var/www/html
+    command:
+      - php bin/console doctrine:database:create
+      - php bin/console doctrine:migrations:migrate
