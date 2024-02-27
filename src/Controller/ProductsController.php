@@ -98,6 +98,11 @@ class ProductsController extends AbstractController
             if (!$request || !$request->get('name') || !$request->get('price') || !$request->get('vat') || $request->get('vat') == ''){
                 throw new \Exception();
             }
+
+            $check_product = $productsRepository->findBy(['name' => $request->get('name')]);
+            if($check_product && isset($check_product[0])) {
+                throw new \Exception("Product with name " . $request->get('name') . " already exists");
+            }
     
             $product = new Products();
             $product->setName($request->get('name'));
@@ -110,6 +115,10 @@ class ProductsController extends AbstractController
                 $country = $countriesRepository->findBy(['short_name' => $c]);
                 if(!$country || empty($country)) {
                     throw new \Exception("There is no such country as " . $c);
+                }
+
+                if($vat > 20 || $vat < 1) {
+                    throw new \Exception("VAT can have values from 1 to 20");
                 }
 
                 $country = $country[0];
@@ -225,7 +234,10 @@ class ProductsController extends AbstractController
             $entityManager->flush();
 
             if($request->get('vat')) {
-                $country_vat = $countriesVatRepository->findBy(['country' => $country->id, 'product' => $id])[0];
+                if($request->get('vat') < 1 || $request->get('vat') > 20) {
+                    throw new \Exception("VAT can have values from 1 to 20");
+                }
+                $country_vat = $countriesVatRepository->findBy(['country' => $country->getId(), 'product' => $id])[0];
                 $country_vat->setVat($request->get('vat'));
                 $entityManager->flush();
             }

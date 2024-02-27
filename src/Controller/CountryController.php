@@ -2,12 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Products;
 use App\Entity\Countries;
-use App\Entity\CountriesVat;
-use App\Repository\ProductsRepository;
 use App\Repository\CountriesRepository;
-use App\Repository\CountriesVatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,7 +36,7 @@ class CountryController extends AbstractController
             $data = [
                 'status' => 200,
                 'success' => "Country added successfully",
-                'product_id' => $country->getId()
+                'country_id' => $country->getId()
             ];
 
             return $this->response($data);
