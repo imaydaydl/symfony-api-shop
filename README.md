@@ -2,31 +2,12 @@
 Building Symfony REST API for e-shop
 
 ## Build
-Edit .env file
-```
-DATABASE_URL="mysql://root:@127.0.0.1:3306/shop?serverVersion=10.8.4-MariaDB&charset=utf8mb4"
-```
-specify your database user instead of `root` and database password after `root:`. Also you can change database name instead of `shop`.
-
-Create new APP_SECRET - Run command
-```
-php bin/console regenerate-app-secret
-```
-response:
-```
-[OK] New APP_SECRET was generated: NEW APP SECRET HERE
-```
-specify your `NEW APP SECRET HERE` to .env file in APP_SECRET=
-
 Run command.
 ```
 docker compose up
 ```
 
-Run the application
-```
-symfony server:start
-```
+Then use http://localhost:8000 as main url for all API queries. You can also follow this link to make sure that the project is working.
 
 ## APIs
 # Get Country list
